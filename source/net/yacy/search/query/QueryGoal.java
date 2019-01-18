@@ -151,7 +151,10 @@ public class QueryGoal {
         {
             while (s.length() > 0) {
                 // parse query
+                //Nv
                 int p = 0;
+                while (p < s.length() && s.charAt(p) == space)
+                    p++;
                 s = s.substring(p);
                 if (s.length() == 0)
                     break Return_label;
@@ -161,6 +164,7 @@ public class QueryGoal {
                     s = s.substring(1);
                 }
 
+                //Ncov
                 p = 0;
                 while (p < s.length() && s.charAt(p) == space)
                     p++;
@@ -170,7 +174,8 @@ public class QueryGoal {
                 // parse phrase
                 boolean inc = true;
                 if (s.charAt(0) == '-') {
-                    inc = false;}
+                    inc = false;
+                }
                 else if (s.charAt(0) == '+') {
                     inc = true;
                 }
@@ -214,6 +219,7 @@ public class QueryGoal {
             }
         }
     }
+
 
     /**
      * Search query string (without YaCy specific modifier like site:xxx or /smb)

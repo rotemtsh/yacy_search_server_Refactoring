@@ -16,7 +16,7 @@ public class QueryGoalTest {
         // Prameter:  (Query, [result_term1, result_term2 ..])
         testdata.put("O'Reily's book", new String[]{"o'reily's", "book"});
         testdata.put("\"O'Reily's book\"", new String[]{"o'reily's book"}); // quoted term
-        testdata.put("\"O'Reily's\" +book", new String[]{"o'reily's", "book"}); // +word
+        testdata.put("\"O'Reily's\" + +book new", new String[]{"o'reily's", "book", "new"}); // +word
         testdata.put("Umphrey's + McGee", new String[]{"umphrey's", "mcgee"});
         testdata.put("'The Book' library", new String[]{"the book","library"}); //single quoted term
 
