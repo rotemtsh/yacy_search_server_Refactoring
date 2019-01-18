@@ -156,6 +156,7 @@ public class QueryGoal {
                 while (p < s.length() && s.charAt(p) == space)
                     p++;
                 s = s.substring(p);
+                String sCopy = s;
                 if (s.length() == 0)
                     break Return_label;
                 if (s.charAt(0) == '-') {
@@ -166,17 +167,17 @@ public class QueryGoal {
 
                 //Ncov
                 p = 0;
-                while (p < s.length() && s.charAt(p) == space)
+                while (p < sCopy.length() && sCopy.charAt(p) == space)
                     p++;
-                s = s.substring(p);
-                if (s.length() == 0)
+                sCopy = sCopy.substring(p);
+                if (sCopy.length() == 0)
                     break Return_label;
                 // parse phrase
                 boolean inc = true;
-                if (s.charAt(0) == '-') {
+                if (sCopy.charAt(0) == '-') {
                     inc = false;
                 }
-                else if (s.charAt(0) == '+') {
+                else if (sCopy.charAt(0) == '+') {
                     inc = true;
                 }
 
