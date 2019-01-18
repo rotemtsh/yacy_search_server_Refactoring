@@ -147,56 +147,63 @@ public class QueryGoal {
  * dq         = '"'
  */
     private static void parseQuery(String s, Collection<String> include_string, Collection<String> exclude_string) {
-        while (s.length() > 0) {
-            // parse query
-            int p = 0;
-            while (p < s.length() && s.charAt(p) == space) p++;
-            s = s.substring(p);
-            if (s.length() == 0) return;
+        Return_label:
+        {
+            while (s.length() > 0) {
+                // parse query
+                int p = 0;
+                while (p < s.length() && s.charAt(p) == space)
+                    p++;
+                s = s.substring(p);
+                if (s.length() == 0)
+                    break Return_label;
 
-            // parse phrase
-            boolean inc = true;
-            if (s.charAt(0) == '-') {
-                inc = false;
-                s = s.substring(1);
-            } else if (s.charAt(0) == '+') {
-                inc = true;
-                s = s.substring(1);
-            }
-            if (s.length() == 0) return;
+                // parse phrase
+                boolean inc = true;
+                if (s.charAt(0) == '-') {
+                    inc = false;
+                    s = s.substring(1);
+                } else if (s.charAt(0) == '+') {
+                    inc = true;
+                    s = s.substring(1);
+                }
+                if (s.length() == 0) return;
 
-            // parse string
-            char stop = space;
-            if (s.charAt(0) == dq) {
-                stop = s.charAt(0);
-                s = s.substring(1);
-            } else if (s.charAt(0) == sq) {
-                stop = s.charAt(0);
-                s = s.substring(1);
-            }
-            p = 0;
-            while (p < s.length() && s.charAt(p) != stop) p++;
-            String string = s.substring(0, p);
-            p++; // go behind the stop character (eats up space, sq and dq)
-            s = p < s.length() ? s.substring(p) : "";
-            if (string.length() > 0) {
-                if (inc) {
-                    if (!include_string.contains(string)) include_string.add(string);
-                } else {
-                    if (!exclude_string.contains(string)) exclude_string.add(string);
+                // parse string
+                char stop = space;
+                if (s.charAt(0) == dq) {
+                    stop = s.charAt(0);
+                    s = s.substring(1);
+                } else if (s.charAt(0) == sq) {
+                    stop = s.charAt(0);
+                    s = s.substring(1);
+                }
+                p = 0;
+                while (p < s.length() && s.charAt(p) != stop) p++;
+                String string = s.substring(0, p);
+                p++; // go behind the stop character (eats up space, sq and dq)
+                s = p < s.length() ? s.substring(p) : "";
+                if (string.length() > 0) {
+                    if (inc) {
+                        if (!include_string.contains(string)) include_string.add(string);
+                    } else {
+                        if (!exclude_string.contains(string)) exclude_string.add(string);
+                    }
                 }
             }
-        }
-        // in case that the include_string contains several entries including 1-char tokens and also more-than-1-char tokens,
-        // then remove the 1-char tokens to prevent that we are to strict. This will make it possible to be a bit more fuzzy
-        // in the search where it is appropriate
-        boolean contains_single = false, contains_multiple = false;
-        for (String token: include_string) {
-            if (token.length() == 1) contains_single = true; else contains_multiple = true;
-        }
-        if (contains_single && contains_multiple) {
-            Iterator<String> i = include_string.iterator();
-            while (i.hasNext()) if (i.next().length() == 1) i.remove();
+
+            // in case that the include_string contains several entries including 1-char tokens and also more-than-1-char tokens,
+            // then remove the 1-char tokens to prevent that we are to strict. This will make it possible to be a bit more fuzzy
+            // in the search where it is appropriate
+            boolean contains_single = false, contains_multiple = false;
+            for (String token : include_string) {
+                if (token.length() == 1) contains_single = true;
+                else contains_multiple = true;
+            }
+            if (contains_single && contains_multiple) {
+                Iterator<String> i = include_string.iterator();
+                while (i.hasNext()) if (i.next().length() == 1) i.remove();
+            }
         }
     }
 
