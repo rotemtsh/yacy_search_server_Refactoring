@@ -152,21 +152,29 @@ public class QueryGoal {
             while (s.length() > 0) {
                 // parse query
                 int p = 0;
+                s = s.substring(p);
+                if (s.length() == 0)
+                    break Return_label;
+                if (s.charAt(0) == '-') {
+                    s = s.substring(1);
+                } else if (s.charAt(0) == '+') {
+                    s = s.substring(1);
+                }
+
+                p = 0;
                 while (p < s.length() && s.charAt(p) == space)
                     p++;
                 s = s.substring(p);
                 if (s.length() == 0)
                     break Return_label;
-
                 // parse phrase
                 boolean inc = true;
                 if (s.charAt(0) == '-') {
-                    inc = false;
-                    s = s.substring(1);
-                } else if (s.charAt(0) == '+') {
+                    inc = false;}
+                else if (s.charAt(0) == '+') {
                     inc = true;
-                    s = s.substring(1);
                 }
+
                 if (s.length() == 0) return;
 
                 // parse string
