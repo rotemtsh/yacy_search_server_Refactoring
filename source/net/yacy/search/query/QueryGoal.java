@@ -164,7 +164,7 @@ public class QueryGoal {
                 s = s.substring(1);
             }
             if (s.length() == 0) return;
-            
+
             // parse string
             char stop = space;
             if (s.charAt(0) == dq) {
