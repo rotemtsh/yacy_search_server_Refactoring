@@ -158,12 +158,7 @@ public class QueryGoal {
                 s = s.substring(p);
                 if (s.length() == 0)
                     break Return_label;
-                boolean inc = true;
-                if (s.charAt(0) == '-') {
-                    inc = false;
-                } else if (s.charAt(0) == '+') {
-                    inc = true;
-                }
+                boolean inc = computeInc(s);
 
                 //marked
                 if (s.length() == 0)
@@ -214,6 +209,15 @@ public class QueryGoal {
         }
     }
 
+    public static boolean computeInc(String s){
+        boolean inc = true;
+        if (s.charAt(0) == '-') {
+            inc = false;
+        } else if (s.charAt(0) == '+') {
+            inc = true;
+        }
+        return inc;
+    }
 
     /**
      * Search query string (without YaCy specific modifier like site:xxx or /smb)
