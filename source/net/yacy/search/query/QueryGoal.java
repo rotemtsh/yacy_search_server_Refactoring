@@ -151,34 +151,27 @@ public class QueryGoal {
         {
             while (s.length() > 0) {
                 // parse query
-                //Nv
+                //before
                 int p = 0;
                 while (p < s.length() && s.charAt(p) == space)
                     p++;
                 s = s.substring(p);
-                String sCopy = s;
+                if (s.length() == 0)
+                    break Return_label;
+                boolean inc = true;
+                if (s.charAt(0) == '-') {
+                    inc = false;
+                } else if (s.charAt(0) == '+') {
+                    inc = true;
+                }
+
+                //marked
                 if (s.length() == 0)
                     break Return_label;
                 if (s.charAt(0) == '-') {
                     s = s.substring(1);
                 } else if (s.charAt(0) == '+') {
                     s = s.substring(1);
-                }
-
-                //Ncov
-                p = 0;
-                while (p < sCopy.length() && sCopy.charAt(p) == space)
-                    p++;
-                sCopy = sCopy.substring(p);
-                if (sCopy.length() == 0)
-                    break Return_label;
-                // parse phrase
-                boolean inc = true;
-                if (sCopy.charAt(0) == '-') {
-                    inc = false;
-                }
-                else if (sCopy.charAt(0) == '+') {
-                    inc = true;
                 }
 
                 if (s.length() == 0) return;
