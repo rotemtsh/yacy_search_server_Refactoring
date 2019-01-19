@@ -92,13 +92,31 @@ public class ResponseHeader extends HeaderFramework {
      * get http field Last-Modified or now (if header field is missing)
      * @return valid date (always != null)
      */
+//    public Date lastModified() {
+//        if (this.date_cache_LastModified != null) return this.date_cache_LastModified;
+//        Date d = headerDate(HeaderFramework.LAST_MODIFIED);
+//        final Date now = new Date();
+//        this.date_cache_LastModified = (d == null) ? date() : d.after(now) ? now : d;
+//        return this.date_cache_LastModified;
+//    }
     public Date lastModified() {
-        if (this.date_cache_LastModified != null) return this.date_cache_LastModified;
-        Date d = headerDate(HeaderFramework.LAST_MODIFIED);
-        final Date now = new Date();
-        this.date_cache_LastModified = (d == null) ? date() : d.after(now) ? now : d;
-        return this.date_cache_LastModified;
+        Date dateToReturn;
+        if (this.date_cache_LastModified != null)
+            dateToReturn = this.date_cache_LastModified;
+        else{
+            Date d = headerDate(HeaderFramework.LAST_MODIFIED);
+            final Date now = new Date();
+            if(d == null)
+                this.date_cache_LastModified = date();
+            else if(d.after(now))
+                this.date_cache_LastModified = now;
+            else
+                this.date_cache_LastModified = d;
+            dateToReturn = this.date_cache_LastModified;
+        }
+        return dateToReturn;
     }
+
 
     /**
      * age in milliseconds (difference between now and last_modified)
