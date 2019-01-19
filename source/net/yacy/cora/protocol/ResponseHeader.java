@@ -101,11 +101,15 @@ public class ResponseHeader extends HeaderFramework {
 //    }
     public Date lastModified() {
         Date dateToReturn = comuptelastModified();
+        updated_date_cache_LastModified(dateToReturn);
+        return dateToReturn;
+    }
+
+    public void updated_date_cache_LastModified(Date dateToReturn){
         if (this.date_cache_LastModified != null){}
-	    else{
+        else{
             this.date_cache_LastModified = dateToReturn;
         }
-        return dateToReturn;
     }
 
     public Date comuptelastModified(){
