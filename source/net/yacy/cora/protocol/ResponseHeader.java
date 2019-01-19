@@ -107,12 +107,15 @@ public class ResponseHeader extends HeaderFramework {
             Date d = headerDate(HeaderFramework.LAST_MODIFIED);
             final Date now = new Date();
             if(d == null)
-                this.date_cache_LastModified = date();
+                dateToReturn = date();
             else if(d.after(now))
-                this.date_cache_LastModified = now;
+                dateToReturn = now;
             else
-                this.date_cache_LastModified = d;
-            dateToReturn = this.date_cache_LastModified;
+                dateToReturn = d;
+        }
+        if (this.date_cache_LastModified != null){}
+	    else{
+            this.date_cache_LastModified = dateToReturn;
         }
         return dateToReturn;
     }
