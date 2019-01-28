@@ -99,8 +99,6 @@ public class ResponseHeader extends HeaderFramework {
 //        this.date_cache_LastModified = (d == null) ? date() : d.after(now) ? now : d;
 //        return this.date_cache_LastModified;
 //    }
-
-
     public Date lastModified() {
         Date dateToReturn = comupteAndUpdate();
         return dateToReturn;
@@ -121,20 +119,14 @@ public class ResponseHeader extends HeaderFramework {
 
     public Date comuptelastModified(){
         Date dateToReturn;
-        if (this.date_cache_LastModified != null)
-            dateToReturn = this.date_cache_LastModified;
-        else{
-            Date d = headerDate(HeaderFramework.LAST_MODIFIED);
-            final Date now = new Date();
-            if(d == null)
-                dateToReturn = date();
-            else if(d.after(now))
-                dateToReturn = now;
-            else
-                dateToReturn = d;
-        }
+        if (this.date_cache_LastModified != null) return this.date_cache_LastModified;
+        Date d = headerDate(HeaderFramework.LAST_MODIFIED);
+        final Date now = new Date();
+        dateToReturn = d == null ? date() : d.after(now)? now : d;
         return dateToReturn;
     }
+
+
 
 
     /**
