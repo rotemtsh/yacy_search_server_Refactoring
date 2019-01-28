@@ -100,11 +100,6 @@ public class ResponseHeader extends HeaderFramework {
 //        return this.date_cache_LastModified;
 //    }
     public Date lastModified() {
-        Date dateToReturn = comupteAndUpdate();
-        return dateToReturn;
-    }
-
-    public Date comupteAndUpdate(){
         Date dateToReturn = comuptelastModified();
         updated_date_cache_LastModified(dateToReturn);
         return dateToReturn;
